@@ -5,24 +5,22 @@
         void DrawTabBlacklist()
         {
             ImGui.BeginChild("##wblacklist");
-            ImGui.TextUnformatted("Select weathers which you do not want to ever see again in any zone.");
-            ImGui.TextUnformatted("This setting is not effective for zones that have their weathers overriden in zone-specific settings.");
-            ImGui.TextUnformatted("Random normally occurring non-blacklisted weather will be selected to replace blacklisted one.");
-            ImGui.TextUnformatted("If there will be no non-blacklisted weather left to choose from, original weather will be kept.");
-            ImGui.TextColored(colorGreen, "Normally occurring weathers in current zone are highlighted green.");
-            ImGui.TextUnformatted("To unblacklist specific zone without overriding it's weather, go to zone-specific settings and check \"Weather control\"");
-            ImGui.TextUnformatted("checkbox on chosen zone without selecting any weathers for it.");
+            ImGui.TextUnformatted("请选择你希望屏蔽的天气");
+            ImGui.TextUnformatted("区域设置的优先级高于此处");
+            ImGui.TextUnformatted("将随机选取正常情况下能够出现的其他天气以替代被屏蔽的天气");
+            ImGui.TextUnformatted("如若没有可供替代的天气, 则维持原天气");
+            ImGui.TextColored(colorGreen, "区域内正常情况下可出现的天气将会标为绿色");
             ImGui.SameLine();
-            ImGui.TextColored(new Vector4(1, 1, 0, 1), "Current weather is yellow (normal)");
+            ImGui.TextColored(new Vector4(1, 1, 0, 1), "当前天气会被标为黄色 (正常)");
             ImGui.SameLine();
-            ImGui.TextColored(new Vector4(1, 0, 0, 1), "or red (abnormal).");
+            ImGui.TextColored(new Vector4(1, 0, 0, 1), "或红色 (异常)");
             ImGui.Separator();
-            if (ImGui.Button("Apply weather changes"))
+            if (ImGui.Button("应用"))
             {
                 p.ApplyWeatherChanges(Svc.ClientState.TerritoryType);
             }
             ImGui.SameLine();
-            ImGui.TextUnformatted("Either click this button or change your zone for settings to become effective.");
+            ImGui.TextUnformatted("点击此按钮或更改你的区域使设置生效");
             ImGui.Separator();
 
             var temparr = p.configuration.BlacklistedWeathers.ToDictionary(entry => entry.Key, entry => entry.Value);

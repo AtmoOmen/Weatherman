@@ -14,19 +14,19 @@ namespace Weatherman
             try
             {
                 ImGui.BeginChild("##debugscreen");
-                if (ImGui.Button("Print configuration string"))
+                if (ImGui.Button("输出配置文本"))
                 {
                     PluginLog.Information(p.configuration.GetConfigurationString());
                 }
-                ImGui.Checkbox("Pause plugin execution", ref p.PausePlugin);
-                ImGui.Checkbox("Profiling", ref p.profiling);
+                ImGui.Checkbox("暂停插件", ref p.PausePlugin);
+                ImGui.Checkbox("分析", ref p.profiling);
                 if (p.profiling)
                 {
-                    ImGui.Text("Total time: " + p.totalTime);
-                    ImGui.Text("Total ticks: " + p.totalTicks);
-                    ImGui.Text("Tick avg: " + (float)p.totalTime / (float)p.totalTicks);
-                    ImGui.Text("MS avg: " + ((float)p.totalTime / (float)p.totalTicks) / (float)Stopwatch.Frequency * 1000 + " ms");
-                    if (ImGui.Button("Reset##SW"))
+                    ImGui.Text("总时间: " + p.totalTime);
+                    ImGui.Text("总时刻: " + p.totalTicks);
+                    ImGui.Text("平均刻: " + (float)p.totalTime / (float)p.totalTicks);
+                    ImGui.Text("平均毫秒: " + ((float)p.totalTime / (float)p.totalTicks) / (float)Stopwatch.Frequency * 1000 + " ms");
+                    if (ImGui.Button("重置##SW"))
                     {
                         p.totalTicks = 0;
                         p.totalTime = 0;

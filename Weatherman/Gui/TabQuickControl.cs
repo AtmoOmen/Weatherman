@@ -10,27 +10,27 @@ namespace Weatherman
             var canModTime = p.timeAllowedZones.Contains(Svc.ClientState.TerritoryType);
             if (canModWeather || canModTime)
             {
-                ImGui.Checkbox("Pause Weatherman", ref p.PausePlugin);
+                ImGui.Checkbox("暂停 Weatherman", ref p.PausePlugin);
                 if (!p.PausePlugin)
                 {
                     if (Svc.Condition[ConditionFlag.WatchingCutscene])
                     {
-                        ImGui.TextWrapped("Disable \"Stop Time/Weather\" in gpose to control them with Weatherman.");
+                        ImGui.TextWrapped("请禁用集体动作中的 \"时刻/天气暂停\" 以便让 Weatherman 接管天气时间控制");
                     }
                     else
                     {
-                        ImGui.TextWrapped("These controls will allow you to temporarily adjust weather and time. They are reset on zone change.");
+                        ImGui.TextWrapped("这些设置能让你临时更改时间和天气, 在区域变更时设置将重置");
                     }
                     if (canModTime)
                     {
-                        ImGui.Checkbox("Time: ", ref p.TimeOverride);
+                        ImGui.Checkbox("时间: ", ref p.TimeOverride);
                         ImGui.SameLine();
                         ImGui.SetNextItemWidth(150f);
                         var span = TimeSpan.FromSeconds(p.TimeOverrideValue);
                         var position = (int)MathF.Ceiling((float)p.TimeOverrideValue / 3600f);
                         if (ImGui.GetIO().KeyCtrl)
                         {
-                            ImGui.Text("Right click me instead!");
+                            ImGui.Text("右键!");
                         }
                         else
                         {
@@ -52,18 +52,18 @@ namespace Weatherman
                             var s = oSpan.Seconds;
                             var m = oSpan.Minutes;
                             var h = oSpan.Hours;
-                            ImGui.Text("Precise editing");
-                            ImGui.Text("Hours:");
+                            ImGui.Text("精确输入");
+                            ImGui.Text("时:");
                             ImGui.SameLine(75f);
                             ImGui.SetNextItemWidth(100f);
                             ImGui.InputInt("##preciseH", ref h);
                             ValidateRange(ref h, 0, 23);
-                            ImGui.Text("Minutes:");
+                            ImGui.Text("分:");
                             ImGui.SameLine(75f);
                             ImGui.SetNextItemWidth(100f);
                             ImGui.InputInt("##precisem", ref m);
                             ValidateRange(ref m, -1, 60);
-                            ImGui.Text("Seconds:");
+                            ImGui.Text("秒:");
                             ImGui.SameLine(75f);
                             ImGui.SetNextItemWidth(100f);
                             ImGui.InputInt("##precises", ref s);
@@ -89,12 +89,12 @@ namespace Weatherman
                             }
                             if (colored) ImGui.PopStyleColor(1);
                         }
-                        if (p.SelectedWeather != 255 && ImGui.Button("Reset weather##weather"))
+                        if (p.SelectedWeather != 255 && ImGui.Button("重置天气##weather"))
                         {
                             p.SelectedWeather = 255;
                         }
                     }
-                    if (ImGui.Button("Reload zone settings"))
+                    if (ImGui.Button("重置区域设置"))
                     {
                         p.ApplyWeatherChanges(Svc.ClientState.TerritoryType);
                     }
@@ -102,7 +102,7 @@ namespace Weatherman
             }
             else
             {
-                ImGui.Text("Can't use now");
+                ImGui.Text("当前无法使用");
             }
         }
     }
